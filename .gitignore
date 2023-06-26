@@ -173,3 +173,5 @@ cython_debug/
 #.idea/
 
 .ruff_cache/
+data/*.csv
+data/*.txt
