@@ -2,10 +2,9 @@
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter"
     },
-    "python.formatting.provider": "none",
+    "python.formatting.provider": "black",
     "yaml.schemas": {
         "./schema.json": "*.yaml",
-        "file:///c%3A/Users/jagga/Documents/Repositories/se463-scenario-table/schema.json": "file:///c%3A/Users/jagga/Documents/Repositories/se463-scenario-table/discover_recipes.yaml"
     },
   }
   
