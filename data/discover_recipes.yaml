@@ -1,0 +1,82 @@
+Actors:
+  - User
+  - Budget-Meal Planner
+  - External Recipe Source
+Scenario:
+  - User: Opens the Budget-Meal Planner
+  - Budget-Meal Planner: Displays the login screen
+  - User: Types in their username and password
+  - Budget-Meal Planner: The user is logged in to the account with matching credentials
+    Exceptions:
+      - Description: The user enters an incorrect username or password
+        Actions:
+          - Budget-Meal Planner: Displays an error message, "Incorrect username or password. Try again."
+        Goto: 3
+  - Budget-Meal Planner: The "Home" screen is displayed
+    Alternatives:
+      - Description: First time setup
+        Actions:
+          - Budget-Meal Planner: Asks the user to enter their dietary preferences
+          - User: Enters their dietary preferences
+          - Budget-Meal Planner: Asks the user to enter their weekly budget
+          - User: Types in a numerical value
+          - Budget-Meal Planner: Asks the user to enter how many meals they would like in a day
+          - User: Types in a numerical value between 1 and 5
+        Goto: 5
+  - User: Clicks the "Discover Recipes" button
+  - Budget-Meal Planner: Displays a collection of the top 15 recipes related to the user's preferences, which have not been saved by the user
+  - User: Clicks on a recipe
+    Alternatives:
+      - Description: Clicks the "Search" button
+        Actions:
+          - Budget-Meal Planner: Displays a search bar
+          - User: Types in a search query
+          - Budget-Meal Planner: Forwards the search query to the external recipe source
+          - External Recipe Source: Returns a collection of recipes related to the search query
+          - Budget-Meal Planner: Removes any recipes already saved to the user's account from the collection
+          - Budget-Meal Planner: Displays this collection of recipes
+        Goto: 8
+      - Description: Clicks the "New Recipe" button
+        Actions:
+          - Budget-Meal Planner: Displays a form for the user to enter a new recipe. Includes fields for the recipe's name, ingredients, and instructions
+          - User: Types in the recipe's name, ingredients, and instructions
+          - Budget-Meal Planner: Displays a preview of the recipe's details
+          - User: Clicks the "Save Recipe" button
+          - Budget-Meal Planner: Saves the recipe to the user's account, in the "My Recipes" section
+        Goto: 9
+      - Description: User scrolls down to the bottom of the page
+        Actions:
+          - Budget-Meal Planner: Loads the next 15 recipes
+        Goto: 8
+  - Budget-Meal Planner: Displays the recipe's details
+  - User: Clicks the "Like" button
+    Alternatives:
+      - Description: Clicks the "Dislike" button
+        Actions:
+          - Budget-Meal Planner: Adds the recipe to the user's account, in the "Disliked Recipes" section
+        Goto: 13
+      - Description: Clicks the "Show Similar Recipes" button
+        Actions:
+          - Budget-Meal Planner: Formulates a search query based on the recipe's ingredients, cuisine, and user's dietary preferences
+        Goto: A2.10
+  - Budget-Meal Planner: Saves the recipe to the user's account, in the "Liked Recipes" section
+  - User: Clicks the "Back" button
+  - Budget-Meal Planner: Displays the collection of recipes again
+
+  # - User: user does this
+  #   Alternatives:
+  #     - Description: alt1
+  #       Actions:
+  #         - User: user does p
+  #         - Budget-Meal Planner: system does a
+  #         - User: user does q
+  #         - Budget-Meal Planner: system does b
+  #       Goto: 3
+  # - Budget-Meal Planner: system does this
+  #   Exceptions:
+  #     - Description: err1
+  #       Actions:
+  #         - Budget-Meal Planner: error 1 occured
+  #         - User: user does x
+  #         - Budget-Meal Planner: action text f
+  #       Goto: 1

@@ -1,0 +1,27 @@
+select = [
+    "ANN",    # flake8-annotations
+    "C4",     # flake8-comprehensions
+    "C90",    # mccabe - code complexity
+    "E",      # pycodestyle - error
+    "EM",     # flake8-errmsg
+    "ERA",    # eradicate commented out code
+    "F",      # Pyflakes
+    "FBT",    # flake8-boolean-trap
+    "I",      # isort
+    "ISC",    # flake8-implicit-str-concat
+    "ICN",    # flake8-import-conventions
+    "N",      # pep8-naming
+    "PTH",    # flake8-use-pathlib
+    "PD",     # pandas-vet
+    "RET",    # flake8-return
+    "RUF100", # ruff - unused-noqa
+    "SIM",    # flake8-simplify
+    "T20",    # flake8-print
+]
+ignore = [
+    "E501",   # line length violations
+]
+
+[mccabe]
+# Flag errors (`C901`) whenever the complexity level exceeds 5.
+max-complexity = 10

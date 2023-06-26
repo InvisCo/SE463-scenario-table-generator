@@ -1,0 +1,104 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Schema for YAML",
+    "type": "object",
+    "properties": {
+        "Actors": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "Scenario": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "User": {
+                        "type": "string"
+                    },
+                    "Software": {
+                        "type": "string"
+                    },
+                    "Environment": {
+                        "type": "string"
+                    },
+                    "Alternatives": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "Description": {
+                                    "type": "string"
+                                },
+                                "Actions": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "additionalProperties": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "Goto": {
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "integer"
+                                        }
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "Description",
+                                "Actions",
+                                "Goto"
+                            ]
+                        }
+                    },
+                    "Exceptions": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "Description": {
+                                    "type": "string"
+                                },
+                                "Actions": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "additionalProperties": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "Goto": {
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "integer"
+                                        }
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "Description",
+                                "Actions",
+                                "Goto"
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "required": [
+        "Actors",
+        "Scenario"
+    ]
+}

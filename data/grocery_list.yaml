@@ -1,0 +1,51 @@
+Actors:
+  - User
+  - Budget-Meal Planner
+  - External Grocery Pricing Source
+Scenario:
+  - User: Clicks the "Grocery List" button
+    Alternatives:
+      - Description: View Pantry
+        Actions:
+          - User: Clicks the "Pantry" button
+          - Budget-Meal Planner: Displays a collection of all ingredients in the user's pantry
+          - User: Clicks on an ingredient
+          - Budget-Meal Planner: Displays ingredient details page containing the quantity of the ingredient in the pantry
+          - User: Clicks the "Show recipes that use this" button
+          - Budget-Meal Planner: Displays a collection of all recipes that use the ingredient
+        Goto: 1
+  - Budget-Meal Planner: Requests for the latest prices of ingredients in the grocery list from the external grocery pricing source. Rate limited to once per day.
+  - External Grocery Pricing Source: Returns the latest prices of ingredients in the grocery list
+    Exceptions:
+      - Description: The external grocery pricing source is unavailable
+        Actions:
+          - Budget-Meal Planner: Displays an error message, "Unable to retrieve latest prices. Please try again later."
+          - Budget-Meal Planner: Displays the user's grocery list with the latest prices from the last successful request
+        Goto: 5
+  - Budget-Meal Planner: Displays the user's grocery list with the latest prices
+  - User: Clicks the checkbox next to the ingredient
+    Alternatives:
+      - Description: View ingredient details
+        Actions:
+          - User: Clicks on an ingredient
+          - Budget-Meal Planner: Displays ingredient details page containing the quantity and latest price of the ingredient in the grocery list
+          - User: Clicks the "Show recipes that use this" button
+          - Budget-Meal Planner: (Refer to A1.6 for functionality)
+          - User: Clicks the "Back" button
+        Goto: 4
+  - Budget-Meal Planner: Displays a confirmation message, "Add ingredient to pantry?" with the options "Yes", "No", and "Modify Quantity"
+  - User: Clicks the "Yes" button
+    Alternatives:
+      - Description: Click the "No" button in the confirmation message
+        Actions:
+          - User: Clicks the "No" button
+        Goto: 5
+      - Description: Click the "Modify Quantity" button in the confirmation message
+        Actions:
+          - User: Clicks the "Modify Quantity" button
+          - Budget-Meal Planner: Displays a number field for the user to enter the quantity of the ingredient to add to the pantry
+          - User: Enters the quantity of the ingredient to add to the pantry
+          - Budget-Meal Planner: Updates the number field display
+          - User: Clicks the "Confirm" button
+        Goto: 8
+  - Budget-Meal Planner: Moves the ingredient to the pantry, adds the quantity in the grocery list to what was already in the pantry
