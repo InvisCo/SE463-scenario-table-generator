@@ -1,4 +1,5 @@
 import csv
+import re
 from io import TextIOWrapper
 from pathlib import Path
 
@@ -105,6 +106,78 @@ def output_tabulated(
     )
 
 
+def output_latex(
+    tables: tuple[list[list[str]], list[list[str]]],
+    actors: list,
+    filename: str,
+    regex: str,
+) -> None:
+    # Open the LaTeX file
+    with Path(filename).open("r", encoding="UTF-8") as file:
+        lines = file.readlines()
+
+    # Find the line number to insert tables
+    line_number = -1
+    for i, line in enumerate(lines):
+        if re.search(re.escape(regex), line):
+            line_number = i + 1
+            break
+
+    # If regex is not matched in any line
+    if line_number == -1:
+        print(f"No line in {filename} matches the provided regular expression.")
+        return
+
+    def generate_latex_table(
+        table: list[list[str]], description: str | None = None
+    ) -> list[str]:
+        begin = "\n\\begin{xltabular}{\\textwidth}{|" + "X|" * len(actors) + "}\n"
+        latex_table = [begin]
+        if description:
+            latex_table.append("\\hline\n")
+            latex_table.append(
+                "\\multicolumn{"
+                + str(len(actors))
+                + "}{|p{\\dimexpr\\linewidth-2\\tabcolsep\\relax}|}{"
+                + description
+                + "} \\\\\n"
+            )
+        latex_table.append("\\hline\n")
+        latex_table.append(" & ".join(actors) + " \\\\\n")
+        latex_table.append("\\hline\n")
+        for row in table:
+            latex_table.append(" & ".join(row) + " \\\\\n")
+        latex_table.append("\\hline\n")
+        latex_table.append("\\end{xltabular}\n")
+        return latex_table
+
+    # Convert tables to LaTeX format
+    latex_tables = [f"% START {regex[1:5]} TABLES\n"]
+    latex_tables.extend(generate_latex_table(tables[0]))
+    for description, table in tables[1]:
+        latex_tables.extend(generate_latex_table(table, description))
+    latex_tables.append(f"% END {regex[1:5]} TABLES\n")
+
+    # Remove previous tables if they exist
+    start_table_line = -1
+    end_table_line = -1
+    for i, line in enumerate(lines):
+        if line.strip() == f"% START {regex[1:5]} TABLES":
+            start_table_line = i
+        elif line.strip() == f"% END {regex[1:5]} TABLES":
+            end_table_line = i
+            break
+    if start_table_line != -1 and end_table_line != -1:
+        lines = lines[:start_table_line] + lines[end_table_line + 1 :]
+
+    # Insert tables into LaTeX file
+    lines = lines[:line_number] + latex_tables + lines[line_number:]
+
+    # Write back to the LaTeX file
+    with Path(filename).open("w", encoding="UTF-8") as file:
+        file.writelines(lines)
+
+
 def main() -> None:
     with Path(DATA_PATH, "tables.txt").open("w", encoding="utf-8") as file:
         for use_case_file in DATA_PATH.glob("*.yaml"):
@@ -117,7 +190,8 @@ def main() -> None:
             # Output
             use_case = use_case_file.name.split(".")[0]
             output_tabulated(use_case, tables, data["Actors"], file)
-            output_csv(tables, data["Actors"], f"{use_case}.csv")
+            # output_csv(tables, data["Actors"], f"{use_case}.csv")
+            output_latex(tables, data["Actors"], "report.tex", data["Regex"])
 
 
 if __name__ == "__main__":
