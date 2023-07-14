@@ -50,7 +50,7 @@
 % Abstract
 \chapter{Abstract}
 \setcounter{page}{1}
-A tool that aids a user in saving money by planning their weekly meals through suggesting recipes that are suitable for their budget and align with their dietary restrictions. Following a personalization process, the users can expect to be presented with recipes that they might like to eat, made using ingredients that fit their budget, with prices from their local grocery store. To aid the grocery shopping process, any missing ingredients for the recipes in their planned meals would be added to a grocery list for the user to follow while shopping.
+A tool that aids a user in maintaining their budget by scheduling their weekly meals through suggesting recipes sourced from an online recipe database, that are suitable for their budget and align with their dietary restrictions. Following a personalization process, the users can expect to be presented with recipes that they might like to eat, made using ingredients that fit their budget, with prices from their local grocery store. To aid the grocery shopping process, any missing ingredients for the recipes in their planned meals would be added to a grocery list for the user to follow while shopping.
 
 % Domain Model
 \chapter{Domain Model}
@@ -78,6 +78,14 @@ A tool that aids a user in saving money by planning their weekly meals through s
     \item Hide a recipe from the user if they dislike it.
     \item Save a recipe to a “liked” collection for the user if they like it.
 \end{itemize}
+Domain Assumptions
+\begin{itemize}
+    \item The user has an account.
+    \item Online Recipe Database is available.
+    \item External Grocery Pricing Source is available.
+    \item Recipe is valid, and can be cooked.
+    \item The ingredients in the recipe are available in the External Grocery Pricing Source or the user’s pantry.
+\end{itemize}
 
 \noindent \textbf{Plan for Grocery Shopping}
 \begin{itemize}
@@ -86,23 +94,35 @@ A tool that aids a user in saving money by planning their weekly meals through s
     \item Add all ingredients from a recipe to the grocery list.
     \item Move ingredients from grocery list to pantry based on what the user bought from the grocery store.
 \end{itemize}
+Domain Assumptions
+\begin{itemize}
+    \item The user has an account.
+    \item External Grocery Pricing Source is available.
+    \item The currency of the External Grocery Pricing Source is the same as the user’s currency.
+    \item The prices are up to date, and representative of the real world.
+    \item 
+\end{itemize}
 
 \noindent \textbf{Schedule Meals}
 \begin{itemize}
     \item Assign a recipe to a meal on a user’s schedule.
     \item Display a user’s meal plan (schedule).
 \end{itemize}
+Domain Assumptions
+\begin{itemize}
+    \item The user has an account.
+    \item Recipes are accessible.
+    \item There are enough recipes available to fill the user’s schedule.
+    \item The ingredients for the meals are available in the user’s pantry, or can be procured.
+\end{itemize}
 
 % Scenarios
 \chapter{Scenarios}
 \noindent \textbf{UC 1: Discover Recipes} \\
-\lipsum[1]
 
 \noindent \textbf{UC 2: Plan for Grocery Shopping} \\
-\lipsum[1]
 
 \noindent \textbf{UC 3: Schedule Meals} \\
-\lipsum[1]
 
 % User Stories
 \chapter{User Stories}
