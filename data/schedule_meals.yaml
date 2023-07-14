@@ -1,50 +1,33 @@
+Regex: "{UC 3: Schedule Meals}"
 Actors:
   - User
   - Budget-Meal Planner
 Scenario:
   - User: Clicks the "Schedule" button
+  - Budget-Meal Planner: Prompts the user with a message, "Schedule meals for the week?"
+  - User: Clicks the "Yes" button
+  - Budget-Meal Planner: Selects recipes from the app's local recipe database, and assigns them to every meal slot for the week
+    Exception:
+      - Description: The app is unable to find recipes for a meal slot
+        Actions:
+          - Budget-Meal Planner: Displays an error message, "Unable to find recipes to schedule. Please try again later."
+          - User: Acknowledges the error message
+          - Budget-Meal Planner: Go To UC1.5
   - Budget-Meal Planner: Displays the user's weekly meal plan schedule
   - User: Clicks on a day of the week
   - Budget-Meal Planner: Displays the user's meal plan for that day
   - User: Clicks on a time slot for a meal
   - Budget-Meal Planner: Displays the meal details page
   - User: Clicks on a recipe
-    Alternatives:
-      - Description: Add a recipe to the user's schedule
-        Actions:
-          - User: Clicks the "Add Recipe" button
-          - Budget-Meal Planner: Displays a collection of the user's saved recipes, from the "My Recipes" and "Liked" lists
-          - User: Clicks on a recipe
-          - Budget-Meal Planner: Displays the recipe's details
-          - User: Clicks the "Add to meal" button
-        Goto: 6
   - Budget-Meal Planner: Displays the recipe's details
   - User: Clicks the "Add ingredients to Grocery List" button
-    Alternatives:
-      - Description: Like a recipe
-        Actions:
-          - User: Clicks the "Like" button
-          - Budget-Meal Planner: (Refer to UC1.10 for functionality)
-        Goto: 8
-      - Description: Dislike a recipe
-        Actions:
-          - User: Clicks the "Dislike" button
-          - Budget-Meal Planner: (Refer to UC1.A3.10 for functionality)
-        Goto: 8
-      - Description: Remove a recipe from the user's schedule
-        Actions:
-          - User: Clicks the "Add Recipe" button
-          - Budget-Meal Planner: Displays a collection of the user's saved recipes, from the "My Recipes" and "Liked" lists
-          - User: Clicks on a recipe
-          - Budget-Meal Planner: Displays the recipe's details
-          - User: Clicks the "Add to meal" button
-        Goto: 6
   - Budget-Meal Planner: Displays a confirmation message, "Add all ingredients to Grocery List?" with the options "Yes" and "No"
   - User: Clicks the "Yes" button
-    Alternatives:
-      - Description: Click the "No" button in the confirmation message
+    Exception:
+      - Description: Fails to add ingredients to grocery list
         Actions:
-          - User: Clicks the "No" button
-        Goto: 8
+          - Budget-Meal Planner: Displays an error message, "Unable to add ingredients to grocery list. Please try again."
+          - User: Acknowledges the error message
+          - Budget-Meal Planner: Go To 11
   - Budget-Meal Planner: Adds all ingredients in the recipe to the user's grocery list, adding quantities wherever possible
-  - Budget-Meal Planner: Displays the user's grocery list (Refer to UC2.2 for functionality)
+  - User: Clicks the "Home" button to return to the Home page

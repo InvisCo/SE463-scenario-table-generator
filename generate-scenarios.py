@@ -31,12 +31,12 @@ def process_scenario(
                 row = [""] * len(actors)
                 row[actors.index(actor)] = f"{main_counter}. {action}"
                 main_table.append(row)
-            elif actor in ["Alternatives", "Exceptions"]:
+            elif actor in ["Alternative", "Exception"]:
                 for special in action:
-                    if actor == "Alternatives":
+                    if actor == "Alternative":
                         alternative_counter += 1
                         special_counter = alternative_counter
-                    if actor == "Exceptions":
+                    if actor == "Exception":
                         error_counter += 1
                         special_counter = error_counter
 
@@ -52,7 +52,6 @@ def process_scenario(
                             special_counter_sub += 1
 
                     row = [""] * len(actors)
-                    row[0] = f'Go To: {special["Goto"]}'
                     special_table.append(row)
 
                     special_tables.append(

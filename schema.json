@@ -23,7 +23,7 @@
                     "Environment": {
                         "type": "string"
                     },
-                    "Alternatives": {
+                    "Alternative": {
                         "type": "array",
                         "items": {
                             "type": "object",
@@ -39,26 +39,15 @@
                                             "type": "string"
                                         }
                                     }
-                                },
-                                "Goto": {
-                                    "anyOf": [
-                                        {
-                                            "type": "string"
-                                        },
-                                        {
-                                            "type": "integer"
-                                        }
-                                    ]
                                 }
                             },
                             "required": [
                                 "Description",
-                                "Actions",
-                                "Goto"
+                                "Actions"
                             ]
                         }
                     },
-                    "Exceptions": {
+                    "Exception": {
                         "type": "array",
                         "items": {
                             "type": "object",
@@ -74,22 +63,11 @@
                                             "type": "string"
                                         }
                                     }
-                                },
-                                "Goto": {
-                                    "anyOf": [
-                                        {
-                                            "type": "string"
-                                        },
-                                        {
-                                            "type": "integer"
-                                        }
-                                    ]
                                 }
                             },
                             "required": [
                                 "Description",
-                                "Actions",
-                                "Goto"
+                                "Actions"
                             ]
                         }
                     }

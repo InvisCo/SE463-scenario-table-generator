@@ -119,10 +119,181 @@ Domain Assumptions
 % Scenarios
 \chapter{Scenarios}
 \noindent \textbf{UC 1: Discover Recipes} \\
+% START UC 1 TABLES
+
+\begin{xltabular}{\textwidth}{|X|X|X|}
+\hline
+User & Budget-Meal Planner & Online Recipe Database \\
+\hline
+1. Opens the Budget-Meal Planner &  &  \\
+ & 2. Displays the login screen &  \\
+3. Types in their username and password &  &  \\
+ & 4. The user is logged in to the account with matching credentials &  \\
+ & 5. The "Home" screen is displayed &  \\
+6. Clicks the "Discover Recipes" button &  &  \\
+ & 7. Displays a page with a search box at the top and a scrollable collection of the top 15 recipes related to the user's preferences, which have not been saved by the user &  \\
+8. Clicks on a recipe &  &  \\
+ & 9. Displays the recipe's details &  \\
+10. Clicks the "Like" button &  &  \\
+ & 11. Saves the recipe to the user's account, in the "Liked Recipes" section &  \\
+12. Clicks the "Back" button &  &  \\
+ & 13. Displays the collection of recipes again &  \\
+14. Clicks the search box &  &  \\
+ & 15. Displays a search bar with a "Search" button &  \\
+16. Types in a search query &  &  \\
+ & 17. Forwards the search query to the Online Recipe Database &  \\
+ &  & 18. Returns a collection of recipes related to the search query \\
+ & 19. Compares the collection of recipes returned by the online recipe database with the collection of recipes already saved to the user's account &  \\
+ & 20. Removes any recipes already saved to the user's account from the collection and displays the remaining collection of recipes &  \\
+21. Go To 8 &  &  \\
+22. Clicks the "Home" button to return to the Home page &  &  \\
+\hline
+\end{xltabular}
+
+\begin{xltabular}{\textwidth}{|X|X|X|}
+\hline
+\multicolumn{3}{|p{\dimexpr\linewidth-2\tabcolsep\relax}|}{Exception 1: The user enters an incorrect username or password} \\
+\hline
+User & Budget-Meal Planner & Online Recipe Database \\
+\hline
+ & E1.4. Checks the database for a matching username, if user does not exist, displays an error message, "Incorrect username or password. Try again." &  \\
+E1.5. Go To 3 &  &  \\
+ &  &  \\
+\hline
+\end{xltabular}
+
+\begin{xltabular}{\textwidth}{|X|X|X|}
+\hline
+\multicolumn{3}{|p{\dimexpr\linewidth-2\tabcolsep\relax}|}{Exception 2: The online recipe database is unavailable} \\
+\hline
+User & Budget-Meal Planner & Online Recipe Database \\
+\hline
+ & E2.18. Attempts to connect to the online recipe database source &  \\
+ &  & E2.19. No response or connection refused \\
+ & E2.20. Retries the connection 3 times &  \\
+ &  & E2.21. No response or connection refused after 3 retries \\
+ & E2.22. Displays an error message, "Unable to retrieve search results. Please try again later." &  \\
+E2.23. Acknowledges the error message &  &  \\
+ & E2.24. Go To 7 &  \\
+ &  &  \\
+\hline
+\end{xltabular}
+% END UC 1 TABLES
 
 \noindent \textbf{UC 2: Plan for Grocery Shopping} \\
+% START UC 2 TABLES
+
+\begin{xltabular}{\textwidth}{|X|X|X|}
+\hline
+User & Budget-Meal Planner & External Grocery Pricing Source \\
+\hline
+1. Clicks the "Grocery List" button &  &  \\
+ & 2. Displays the user's empty grocery list with the message, "Add something to the list!", and a button to add ingredients &  \\
+3. Clicks the "Add ingredients" button &  &  \\
+ & 4. Displays a search bar and a list of common ingredients &  \\
+5. Types in the search bar &  &  \\
+ & 6. Displays a list of ingredients matching the search query &  \\
+7. Clicks on an ingredient &  &  \\
+ & 8. Displays a prompt, "How much {ingredient name} do you want to add?" and a number input field, along with the options "Yes" and "No" &  \\
+9. Enters the quantity of the ingredient to add to the grocery list &  &  \\
+ & 10. Updates the number input field with the quantity entered by the user &  \\
+11. Clicks the "Yes" button &  &  \\
+ & 12. Returns to the grocery list, with the ingredient added to the list with the quantity entered by the user &  \\
+ & 13. Requests for the latest prices of ingredients in the grocery list from the external grocery pricing source. Rate limited to once per day. &  \\
+ &  & 14. Returns the latest prices of ingredients in the grocery list \\
+ & 15. Displays the user's grocery list with the latest prices &  \\
+16. Clicks the checkbox next to the ingredient &  &  \\
+ & 17. Displays a confirmation message, "Add ingredient to pantry?" with the options "Yes", "No", and "Modify Quantity" &  \\
+18. Clicks the "Yes" button &  &  \\
+ & 19. Moves the ingredient to the pantry, adds the quantity in the grocery list to what was already in the pantry &  \\
+ & 20. Displays the user's pantry, containing a scrollable list of ingredients and their quantities &  \\
+21. Clicks the "Home" button to return to the Home page &  &  \\
+\hline
+\end{xltabular}
+
+\begin{xltabular}{\textwidth}{|X|X|X|}
+\hline
+\multicolumn{3}{|p{\dimexpr\linewidth-2\tabcolsep\relax}|}{Exception 1: The user's search query does not match any ingredients} \\
+\hline
+User & Budget-Meal Planner & External Grocery Pricing Source \\
+\hline
+ & E1.6. Displays a message, "No results found..." &  \\
+E1.7. Go To 5 &  &  \\
+ &  &  \\
+\hline
+\end{xltabular}
+
+\begin{xltabular}{\textwidth}{|X|X|X|}
+\hline
+\multicolumn{3}{|p{\dimexpr\linewidth-2\tabcolsep\relax}|}{Exception 2: The external grocery pricing source is unavailable} \\
+\hline
+User & Budget-Meal Planner & External Grocery Pricing Source \\
+\hline
+ & E2.14. Attempts to connect to the external grocery pricing source &  \\
+ &  & E2.15. No response or connection refused \\
+ & E2.16. Retries the connection 3 times &  \\
+ &  & E2.17. No response or connection refused after 3 retries \\
+ & E2.18. Displays an error message, "Unable to retrieve latest prices. Please try again later." &  \\
+E2.19. Acknowledges the error message &  &  \\
+ & E2.20. Displays the user's grocery list with the latest prices from the last successful request &  \\
+E2.21. Go To 5 &  &  \\
+ &  &  \\
+\hline
+\end{xltabular}
+% END UC 2 TABLES
 
 \noindent \textbf{UC 3: Schedule Meals} \\
+% START UC 3 TABLES
+
+\begin{xltabular}{\textwidth}{|X|X|}
+\hline
+User & Budget-Meal Planner \\
+\hline
+1. Clicks the "Schedule" button &  \\
+ & 2. Prompts the user with a message, "Schedule meals for the week?" \\
+3. Clicks the "Yes" button &  \\
+ & 4. Selects recipes from the app's local recipe database, and assigns them to every meal slot for the week \\
+ & 5. Displays the user's weekly meal plan schedule \\
+6. Clicks on a day of the week &  \\
+ & 7. Displays the user's meal plan for that day \\
+8. Clicks on a time slot for a meal &  \\
+ & 9. Displays the meal details page \\
+10. Clicks on a recipe &  \\
+ & 11. Displays the recipe's details \\
+12. Clicks the "Add ingredients to Grocery List" button &  \\
+ & 13. Displays a confirmation message, "Add all ingredients to Grocery List?" with the options "Yes" and "No" \\
+14. Clicks the "Yes" button &  \\
+ & 15. Adds all ingredients in the recipe to the user's grocery list, adding quantities wherever possible \\
+16. Clicks the "Home" button to return to the Home page &  \\
+\hline
+\end{xltabular}
+
+\begin{xltabular}{\textwidth}{|X|X|}
+\hline
+\multicolumn{2}{|p{\dimexpr\linewidth-2\tabcolsep\relax}|}{Exception 1: The app is unable to find recipes for a meal slot} \\
+\hline
+User & Budget-Meal Planner \\
+\hline
+ & E1.4. Displays an error message, "Unable to find recipes to schedule. Please try again later." \\
+E1.5. Acknowledges the error message &  \\
+ & E1.6. Go To UC1.5 \\
+ &  \\
+\hline
+\end{xltabular}
+
+\begin{xltabular}{\textwidth}{|X|X|}
+\hline
+\multicolumn{2}{|p{\dimexpr\linewidth-2\tabcolsep\relax}|}{Exception 2: Fails to add ingredients to grocery list} \\
+\hline
+User & Budget-Meal Planner \\
+\hline
+ & E2.14. Displays an error message, "Unable to add ingredients to grocery list. Please try again." \\
+E2.15. Acknowledges the error message &  \\
+ & E2.16. Go To 11 \\
+ &  \\
+\hline
+\end{xltabular}
+% END UC 3 TABLES
 
 % User Stories
 \chapter{User Stories}
