@@ -11,10 +11,22 @@
 \usepackage{caption}
 \captionsetup[figure]{labelfont={bf},name={Figure},labelsep=period, font={it}}
 \usepackage{xltabular}
+
 \usepackage{titlesec}
+% Chapter formatting
 \titleformat{\chapter}[hang] 
-{\normalfont\huge\bfseries}{}{1em}{} 
+{\normalfont\huge\bfseries}{\thechapter}{1em}{} 
 \titlespacing*{\chapter}{0pt}{0pt}{40pt}
+% SubSection formatting
+\titleformat{\subsection}
+{\normalfont\large\bfseries}{}{0em}{}
+\titlespacing*{\subsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+% SubSubSection formatting
+\titleformat{\subsubsection}
+{\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+\titlespacing*{\subsubsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\author{Nishesh Jagga}
 
 \begin{document}
 % Cover page
@@ -23,45 +35,42 @@
     \centering
     \includegraphics[width=\textwidth]{images/logo.png}\par
     \vspace{1cm}
-    {\bfseries SE 463: Software Requirements: Specification \& Analysis: \par}
-    \vspace{0.5cm}
-    {Daniel Berry \par}
+    {\bfseries Software Requirements Specification\par}
     \vspace{5cm}
     {Group 01: \par}
     {Nishesh Jagga \par}
     {20741914 \par}
-    \vspace{5cm}
-    {Friday, July 14, 2023 \par}
+    {n2jagga \par}
 \end{titlepage}
 \restoregeometry
 
-% Table of Contents
 \tableofcontents
-\thispagestyle{empty}
 \clearpage
 
-% Custom header and footer
-\pagestyle{fancy}
-\fancyhf{}
-\rfoot{\thepage}
-\lfoot{Deliverable 4}
-\renewcommand{\headrulewidth}{0pt}
+\listoffigures
+\clearpage
 
-% Abstract
-\chapter{Abstract}
+% Section 1
+\chapter{Introduction}
 \setcounter{page}{1}
+
+\section{Purpose}
+
+\section{Scope}
 A tool that aids a user in maintaining their budget by scheduling their weekly meals through suggesting recipes sourced from an online recipe database, that are suitable for their budget and align with their dietary restrictions. Following a personalization process, the users can expect to be presented with recipes that they might like to eat, made using ingredients that fit their budget, with prices from their local grocery store. To aid the grocery shopping process, any missing ingredients for the recipes in their planned meals would be added to a grocery list for the user to follow while shopping.
 
-% Domain Model
-\chapter{Domain Model}
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth]{images/Domain_Model.png}
-    \caption{Domain Model with World Diagram Superimposed}
-\end{figure}
+\section{Definitions, Acronyms, and Abbreviations}
 
-% Use Case Model
-\chapter{Use Case Model}
+\section{References}
+
+% Section 2
+\chapter{Overall Description}
+
+\section{Product Perspective}
+
+\section{Product Functions}
+
+\subsection{Use Case Model}
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{images/Use_Case.png}
@@ -100,7 +109,6 @@ A tool that aids a user in maintaining their budget by scheduling their weekly m
     \item External Grocery Pricing Source is available.
     \item The currency of the External Grocery Pricing Source is the same as the user’s currency.
     \item The prices are up to date, and representative of the real world.
-    \item 
 \end{itemize}
 
 \section{Schedule Meals}
@@ -116,9 +124,25 @@ A tool that aids a user in maintaining their budget by scheduling their weekly m
     \item The ingredients for the meals are available in the user’s pantry, or can be procured.
 \end{itemize}
 
-% Scenarios
-\chapter{Scenarios}
-\section{UC 1: Discover Recipes}
+\section{User Characteristics}
+
+\section{Assumptions and Dependencies}
+
+% Section 3
+\chapter{Specific Requirements}
+
+\section{Domain Model}
+Describe the domain model here!!
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{images/Domain_Model.png}
+    \caption{Domain Model with World Diagram Superimposed}
+\end{figure}
+
+
+\section{Scenarios}
+\subsection{UC 1: Discover Recipes}
 % START UC 1 TABLES
 
 \begin{xltabular}{\textwidth}{|X|X|X|}
@@ -180,7 +204,7 @@ E2.23. Acknowledges the error message &  &  \\
 \end{xltabular}
 % END UC 1 TABLES
 
-\section{UC 2: Plan for Grocery Shopping}
+\subsection{UC 2: Plan for Grocery Shopping}
 % START UC 2 TABLES
 
 \begin{xltabular}{\textwidth}{|X|X|X|}
@@ -242,7 +266,7 @@ E2.21. Go To 5 &  &  \\
 \end{xltabular}
 % END UC 2 TABLES
 
-\section{UC 3: Schedule Meals}
+\subsection{UC 3: Schedule Meals}
 % START UC 3 TABLES
 
 \begin{xltabular}{\textwidth}{|X|X|}
@@ -296,11 +320,11 @@ E2.15. Acknowledges the error message &  \\
 % END UC 3 TABLES
 
 % User Stories
-\chapter{User Stories}
+\section{User Stories}
 
-\section{Discover Recipes}
+\subsection{Discover Recipes}
 
-\subsection{User Story 1}
+\subsubsection{User Story 1}
 As a user, I want to be able to login so that I can access my personalized recipe recommendations.
 
 \subsubsection{Test Case 1.1}
@@ -309,7 +333,7 @@ Check if the user can enter their login credentials.
 \subsubsection{Test Case 1.2}
 Check if the user can access their account after providing valid credentials.
 
-\subsection{User Story 2}
+\subsubsection{User Story 2}
 As a user, I want to receive personalized recipe recommendations so that I can discover new recipes that align with my preferences.
 
 \subsubsection{Test Case 2.1}
@@ -318,7 +342,7 @@ Check if the user receives recipe recommendations based on their preferences aft
 \subsubsection{Test Case 2.2}
 Check if the recipe recommendations update when the user's preferences change.
 
-\subsection{User Story 3}
+\subsubsection{User Story 3}
 As a user, I want to be able to add new recipes so that I can expand my collection of potential meals.
 
 \subsubsection{Test Case 3.1}
@@ -327,7 +351,7 @@ Check if the user can add a new recipe.
 \subsubsection{Test Case 3.2}
 Check if the added recipe appears in the user's recipe list.
 
-\subsection{User Story 4}
+\subsubsection{User Story 4}
 As a user, I want to be able to hide recipes I dislike so that they don't appear in my future recommendations.
 
 \subsubsection{Test Case 4.1}
@@ -336,7 +360,7 @@ Check if the user can hide a recipe.
 \subsubsection{Test Case 4.2}
 Check if the hidden recipe no longer appears in the recommendation list.
 
-\subsection{User Story 5}
+\subsubsection{User Story 5}
 As a user, I want to be able to save recipes I like so that I can easily find them later.
 
 \subsubsection{Test Case 5.1}
@@ -345,13 +369,13 @@ Check if the user can save a recipe.
 \subsubsection{Test Case 5.2}
 Check if the saved recipe appears in the user's saved recipes list.
 
-\subsection{User Story 6}
+\subsubsection{User Story 6}
 As a user, I want to be able to view the details of a recipe so that I can learn how to prepare it.
 
 \subsubsection{Test Case 6.1}
 Check if the user can view the details of a recipe.
 
-\subsection{User Story 7}
+\subsubsection{User Story 7}
 As a user, I want to be able to search for specific recipes so that I can find something specific I want to cook.
 
 \subsubsection{Test Case 7.1}
@@ -360,57 +384,57 @@ Check if the user can search for a specific recipe.
 \subsubsection{Test Case 7.2}
 Check if the search results are relevant to the search query.
 
-\subsection{User Story 8}
+\subsubsection{User Story 8}
 As a user, I want to be able to view my liked recipes so I can refer back to them whenever I want.
 
 \subsubsection{Test Case 8.1}
 Check if the user can access their list of liked recipes.
 
-\subsection{User Story 9}
+\subsubsection{User Story 9}
 As a user, I want to be able to remove recipes from my liked list so I can manage the recipes I'm interested in.
 
 \subsubsection{Test Case 9.1}
 Check if the user can remove a recipe from their liked list.
 
-\section{Plan for Grocery Shopping}
+\subsection{Plan for Grocery Shopping}
 
-\subsection{User Story 10}
+\subsubsection{User Story 10}
 As a user, I want to be able to view my grocery list so that I know what I need to buy.
 
 \subsubsection{Test Case 10.1}
 Check if the user can view their grocery list.
 
-\subsection{User Story 11}
+\subsubsection{User Story 11}
 As a user, I want to be able to add ingredients to my grocery list so that I can remember to buy them.
 
 \subsubsection{Test Case 11.1}
 Check if the user can add ingredients to their grocery list.
 
-\subsection{User Story 12}
+\subsubsection{User Story 12}
 As a user, I want to be able to remove ingredients from my grocery list so that I can keep the list updated.
 
 \subsubsection{Test Case 12.1}
 Check if the user can remove ingredients from their grocery list.
 
-\subsection{User Story 13}
+\subsubsection{User Story 13}
 As a user, I want to be able to see the latest prices of the ingredients in my grocery list so that I can budget for my shopping.
 
 \subsubsection{Test Case 13.1}
 Check if the user can view the latest prices of the ingredients in the grocery list.
 
-\subsection{User Story 14}
+\subsubsection{User Story 14}
 As a user, I want to be able to update the quantities of ingredients in my pantry after cooking so that my pantry list remains accurate.
 
 \subsubsection{Test Case 14.1}
 Check if the user can update the quantities of ingredients in their pantry.
 
-\subsection{User Story 15}
+\subsubsection{User Story 15}
 As a user, I want to be able to add all ingredients from a recipe to my grocery list so that I can ensure I have everything I need to cook the meal.
 
 \subsubsection{Test Case 15.1}
 Check if the user can add all ingredients from a recipe to the grocery list.
 
-\subsection{User Story 16}
+\subsubsection{User Story 16}
 As a user, I want to be able to move ingredients from my grocery list to my pantry so that I can keep track of what I have bought.
 
 \subsubsection{Test Case 16.1}
@@ -419,57 +443,57 @@ Check if the user can move ingredients from the grocery list to the pantry.
 \subsubsection{Test Case 16.2}
 Check if the moved ingredient is removed from the grocery list and added to the pantry.
 
-\subsection{User Story 17}
+\subsubsection{User Story 17}
 As a user, I want to be able to modify the quantities of ingredients in my grocery list so that I can adjust based on my needs.
 
 \subsubsection{Test Case 17.1}
 Check if the user can modify the quantities of ingredients in the grocery list.
 
-\subsection{User Story 18}
+\subsubsection{User Story 18}
 As a user, I want to be able to view the current quantities of ingredients in my pantry so that I know what I have on hand.
 
 \subsubsection{Test Case 18.1}
 Check if the user can view the current quantities of ingredients in the pantry.
 
-\section{Schedule Meals}
+\subsection{Schedule Meals}
 
-\subsection{User Story 19}
+\subsubsection{User Story 19}
 As a user, I want to be able to create a meal plan so that I can organize my meals for the week.
 
 \subsubsection{Test Case 19.1}
 Check if the user can create a meal plan for the week.
 
-\subsection{User Story 10}
+\subsubsection{User Story 10}
 As a user, I want to be able to view my meal plan so that I can see what I have planned to eat.
 
 \subsubsection{Test Case 20.1}
 Check if the user can view their meal plan.
 
-\subsection{User Story 21}
+\subsubsection{User Story 21}
 As a user, I want to be able to assign a recipe to a meal on my schedule so that I can plan when to cook and eat each meal.
 
 \subsubsection{Test Case 21.1}
 Check if the user can assign a recipe to a meal on their schedule.
 
-\subsection{User Story 22}
+\subsubsection{User Story 22}
 As a user, I want to be able to view the details of a meal in my schedule so that I can see what I need to prepare.
 
 \subsubsection{Test Case 22.1}
 Check if the user can view the details of a meal in their schedule.
 
-\subsection{User Story 23}
+\subsubsection{User Story 23}
 As a user, I want to be able to add all ingredients from a recipe in my meal plan to my grocery list so that I can make sure I have everything I need.
 
 \subsubsection{Test Case 23.1}
 Check if the user can add all ingredients from a recipe in their meal plan to their grocery list.
 
-\subsection{User Story 24}
+\subsubsection{User Story 24}
 As a user, I want to be able to modify my meal plan so that I can adjust based on changes in my schedule or preferences.
 
 \subsubsection{Test Case 24.1}
 Check if the user can modify their meal plan.
 
-\subsection{User Story 25}
+\subsubsection{User Story 25}
 As a user, I want to be able to remove meals from my meal plan so I can adjust my plan when necessary.
 
 \subsubsection{Test Case 25.1}
